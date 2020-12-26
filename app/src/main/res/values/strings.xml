@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">CursUTT</string>
+
+    <string-array name="types_UE">
+        <item>Type d'UE</item>
+        <item>CS</item>
+        <item>TM</item>
+        <item>ST</item>
+        <item>EC</item>
+        <item>ME</item>
+        <item>CT</item>
+        <item>HP</item>
+    </string-array>
+
+    <string-array name="branches">
+        <item>ISI</item>
+        <item>RT</item>
+        <item>A2I</item>
+        <item>MTE</item>
+        <item>GI</item>
+        <item>GM</item>
+        <item>MM</item>
+    </string-array>
+
 </resources>
