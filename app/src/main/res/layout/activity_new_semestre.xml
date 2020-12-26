@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ViewModels.NewSemestreActivity">
+
+    <TextView
+        android:id="@+id/newSemestre_textViewUE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vos UEs:"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/newSemestre_recyclerViewUEs"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/newSemestre_tvRecap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Récapitulatif de vos crédits" />
+
+    <!-- Récapitulatifs de vos crédits -->
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow>
+
+            <TextView
+                android:text="CS"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:text="TM"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:text="ST"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:text="EC"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:text="ME"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:text="CT"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:text="HP"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:text="NPML"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:layout_width="45dp"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/newSemestre_tvCS"
+                android:hint="CS"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:id="@+id/newSemestre_tvTM"
+                android:hint="TM"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:id="@+id/newSemestre_tvST"
+                android:hint="ST"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:id="@+id/newSemestre_tvEC"
+                android:hint="EC"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:id="@+id/newSemestre_tvME"
+                android:hint="ME"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:id="@+id/newSemestre_tvCT"
+                android:hint="CT"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:id="@+id/newSemestre_tvHP"
+                android:hint="HP"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:id="@+id/newSemestre_tvNPML"
+                android:hint="NPML"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:id="@+id/newSemestre_tvTOT"
+                android:hint="Tot."
+                android:layout_width="45dp"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/newSemestre_tvSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rechercher une UE"
+        android:paddingTop="10dp"
+        />
+
+    <!-- Champs pour la recherche d'une UE -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/newSemestre_search_etSigleUE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            android:hint="Sigle de l'UE"/>
+
+        <Spinner
+            android:id="@+id/newSemestre_search_spinnerTypeUE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Spinner
+            android:id="@+id/newSemestre_search_spinnerBranche"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <!-- Boutons rechercher et ajouter -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/newSemestre_search_btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rechercher"/>
+
+        <Button
+            android:id="@+id/newSemestre_search_btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ajouter"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/newSemestre_tvCreate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Créer une UE"
+        android:paddingTop="10dp"
+        />
+
+    <!-- Champs pour la création d'une UE -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/newSemestre_create_etSigleUE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            android:hint="Sigle de l'UE"/>
+
+        <Spinner
+            android:id="@+id/newSemestre_create_spinnerTypeUE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/newSemestre_create_etCreditsUE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            android:hint="Credits de l'UE"/>
+
+        <Spinner
+            android:id="@+id/newSemestre_create_spinnerBranche"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <!-- Bouton créer et ajouter -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/newSemestre_create_buttonCreate"
+            android:text="Créer et ajouter"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

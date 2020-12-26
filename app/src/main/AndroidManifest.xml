@@ -9,6 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CursUTT">
+        <activity android:name=".ViewModels.NewSemestreActivity"></activity>
+        <activity android:name=".ViewModels.NewCursusActivity" />
         <activity android:name=".ViewModels.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
