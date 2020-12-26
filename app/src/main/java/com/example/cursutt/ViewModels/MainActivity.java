@@ -3,6 +3,7 @@ package com.example.cursutt.ViewModels;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Button;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createModule(){
-        
+        Intent intent = new Intent(this, NewCursusActivity.class);
+        startActivity(intent);
     }
 }
