@@ -2,7 +2,7 @@
     <string name="app_name">CursUTT</string>
 
     <string-array name="types_UE">
-        <item>Type d'UE</item>
+        <item>Type UE</item>
         <item>CS</item>
         <item>TM</item>
         <item>ST</item>
@@ -13,6 +13,7 @@
     </string-array>
 
     <string-array name="branches">
+        <item>Branche</item>
         <item>ISI</item>
         <item>RT</item>
         <item>A2I</item>
@@ -20,6 +21,7 @@
         <item>GI</item>
         <item>GM</item>
         <item>MM</item>
+        <item>TC</item>
     </string-array>
 
 </resources>
