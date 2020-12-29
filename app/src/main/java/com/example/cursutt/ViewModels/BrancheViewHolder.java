@@ -12,7 +12,7 @@ import com.example.cursutt.R;
 
 public class BrancheViewHolder extends RecyclerView.ViewHolder {
 
-    private CheckBox cbBranche;
+    public CheckBox cbBranche;
 
     private BrancheViewHolder(View itemView){
         super(itemView);
@@ -29,5 +29,4 @@ public class BrancheViewHolder extends RecyclerView.ViewHolder {
         View v = layout.inflate(R.layout.branche_item, parent, false);
         return new BrancheViewHolder(v);
     }
-
 }

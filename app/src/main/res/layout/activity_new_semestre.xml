@@ -12,8 +12,7 @@
         android:id="@+id/newSemestre_textViewUE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Vos UEs:"
-        />
+        android:text="Vos UEs:" />
 
     <!--<androidx.recyclerview.widget.RecyclerView
         android:id="@+id/newSemestre_recyclerViewUEs"

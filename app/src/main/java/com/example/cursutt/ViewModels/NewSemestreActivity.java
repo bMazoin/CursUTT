@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.cursutt.Models.BrancheEntity;
 import com.example.cursutt.Models.ModuleEntity;
 import com.example.cursutt.R;
 
@@ -27,6 +28,7 @@ public class NewSemestreActivity extends AppCompatActivity {
     private RecyclerView recycler_branchs;
 
     private List<ModuleEntity> modules;
+    private List<BrancheEntity> selectedBranches;
 
     private TextView tv_CS;
     private TextView tv_TM;
@@ -38,9 +40,8 @@ public class NewSemestreActivity extends AppCompatActivity {
     private TextView tv_NPML;
     private TextView tv_TOT;
 
-    private EditText et_search_sigleUE;
-    private EditText et_create_sigleUE;
-    private EditText et_create_nbCredits;
+    private EditText et_sigleUE;
+    private EditText et_nbCredits;
 
     private Spinner spinner_typeUE;
 
@@ -57,6 +58,7 @@ public class NewSemestreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_semestre);
 
         modules = new ArrayList<>();
+        selectedBranches = new ArrayList<>();
 
         tv_CS = (TextView) findViewById(R.id.newSemestre_tvCS);
         tv_TM = (TextView) findViewById(R.id.newSemestre_tvTM);
@@ -67,9 +69,8 @@ public class NewSemestreActivity extends AppCompatActivity {
         tv_HP = (TextView) findViewById(R.id.newSemestre_tvHP);
         tv_NPML = (TextView) findViewById(R.id.newSemestre_tvNPML);
         tv_TOT = (TextView) findViewById(R.id.newSemestre_tvTOT);
-        et_search_sigleUE = (EditText) findViewById(R.id.newSemestre_etSigleUE);
-        et_create_nbCredits = (EditText) findViewById(R.id.newSemestre_etCreditsUE);
-        et_create_sigleUE = (EditText) findViewById(R.id.newSemestre_etSigleUE);
+        et_sigleUE = (EditText) findViewById(R.id.newSemestre_etSigleUE);
+        et_nbCredits = (EditText) findViewById(R.id.newSemestre_etCreditsUE);
 
         spinner_typeUE = (Spinner) findViewById(R.id.newSemestre_spinnerTypeUE);
 
@@ -88,7 +89,17 @@ public class NewSemestreActivity extends AppCompatActivity {
         bt_remove.setOnClickListener(v -> removeModule());
 
         brancheViewModel = new ViewModelProvider(this).get(BrancheViewModel.class);
-        adaptateurBrancheRecycler = new AdaptateurBrancheRecycler(new AdaptateurBrancheRecycler.BrancheDiff());
+        adaptateurBrancheRecycler = new AdaptateurBrancheRecycler(new AdaptateurBrancheRecycler.BrancheDiff(), new AdaptateurBrancheRecycler.OnItemCheckListener() {
+            @Override
+            public void onItemCheck(BrancheEntity item) {
+                selectedBranches.add(item);
+            }
+
+            @Override
+            public void onItemUncheck(BrancheEntity item) {
+                selectedBranches.remove(item);
+            }
+        });
         brancheViewModel.getBranches().observe(this, branche -> {
             adaptateurBrancheRecycler.submitList(branche);
         });
@@ -100,16 +111,20 @@ public class NewSemestreActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> arrayAdapter_create_TypeUE = ArrayAdapter.createFromResource(this, R.array.types_UE, android.R.layout.simple_spinner_item);
         arrayAdapter_create_TypeUE.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_typeUE.setAdapter(arrayAdapter_create_TypeUE);
-        spinner_typeUE.setMinimumHeight(et_search_sigleUE.getHeight());
+        spinner_typeUE.setMinimumHeight(et_sigleUE.getHeight());
     }
 
     private void createModule(){
-        String sigle = et_create_sigleUE.getText().toString();
-        int creds = (int) Integer.parseInt(et_create_nbCredits.getText().toString());
+        String sigle = et_sigleUE.getText().toString();
+        int creds = (int) Integer.parseInt(et_nbCredits.getText().toString());
+        String typeUe = spinner_typeUE.getSelectedItem().toString();
     }
 
     private void resetModule(){
-
+        modules.clear();
+        et_sigleUE.setText("");
+        et_nbCredits.setText("");
+        spinner_typeUE.setSelection(0);
     }
 
     private void removeModule(){

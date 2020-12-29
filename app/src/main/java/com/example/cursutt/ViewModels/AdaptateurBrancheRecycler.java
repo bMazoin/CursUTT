@@ -1,5 +1,7 @@
 package com.example.cursutt.ViewModels;
 
+import android.content.ClipData;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -11,10 +13,18 @@ import com.example.cursutt.Models.BrancheEntity;
 import java.util.List;
 
 public class AdaptateurBrancheRecycler extends ListAdapter<BrancheEntity, BrancheViewHolder> {
-    List<BrancheEntity> branches;
 
-    public AdaptateurBrancheRecycler(@NonNull DiffUtil.ItemCallback<BrancheEntity> diffCallback){
+    interface OnItemCheckListener{
+        void onItemCheck(BrancheEntity item);
+        void onItemUncheck(BrancheEntity item);
+    }
+
+    @NonNull
+    private OnItemCheckListener onItemCheckListener;
+
+    public AdaptateurBrancheRecycler(@NonNull DiffUtil.ItemCallback<BrancheEntity> diffCallback, @NonNull OnItemCheckListener onItemCheckListener){
         super(diffCallback);
+        this.onItemCheckListener = onItemCheckListener;
     }
 
     @Override
@@ -26,6 +36,17 @@ public class AdaptateurBrancheRecycler extends ListAdapter<BrancheEntity, Branch
     public void onBindViewHolder(BrancheViewHolder holder, int position){
         BrancheEntity current = getItem(position);
         holder.display(current);
+        holder.cbBranche.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                if(holder.cbBranche.isChecked()){
+                    onItemCheckListener.onItemCheck(getItem(position));
+                }
+                else{
+                    onItemCheckListener.onItemUncheck(getItem(position));
+                }
+            }
+        });
     }
 
     static class BrancheDiff extends DiffUtil.ItemCallback<BrancheEntity>{
