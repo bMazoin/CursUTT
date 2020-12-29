@@ -8,12 +8,14 @@
         android:id="@+id/cursus_name"
         android:hint="cursus_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:padding="10dp"/>
 
     <TextView
         android:id="@+id/cursus_info"
         android:hint="cursus_info"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:padding="10dp" />
 
 </LinearLayout>
