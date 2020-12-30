@@ -1,6 +1,7 @@
 package com.example.cursutt.Models;
 
 import android.app.Application;
+import android.os.AsyncTask;
 import android.widget.ArrayAdapter;
 
 import androidx.lifecycle.LiveData;
@@ -48,5 +49,52 @@ public class RoomCursUTTRepository {
 
     public LiveData<List<BrancheEntity>> getBranches(){
         return mAllBranches;
+    }
+
+    public LiveData<List<ModuleEntity>> getModules(){
+        return mAllModules;
+    }
+
+    public void insertModule(ModuleEntity module){
+        RoomCursUTTDatabase.databaseWriteExecutor.execute(() -> {
+            insertAsyncTask insertTask = new insertAsyncTask(moduleDAO);
+            insertTask.doInBackground(module);
+        });
+    }
+
+    public void deleteModule(ModuleEntity module){
+        RoomCursUTTDatabase.databaseWriteExecutor.execute(() -> {
+            deleteAsyncTask deleteAsyncTask = new deleteAsyncTask(moduleDAO);
+            deleteAsyncTask.doInBackground(module.getSigle());
+        });
+    }
+
+    private static class insertAsyncTask extends AsyncTask<ModuleEntity, Void, Void>{
+        private ModuleDAO asyncTask;
+
+        insertAsyncTask(ModuleDAO asyncTask){
+            this.asyncTask = asyncTask;
+        }
+
+        @Override
+        protected Void doInBackground(final ModuleEntity... moduleEntities){
+            asyncTask.insert(moduleEntities[0]);
+            return null;
+        }
+    }
+
+    private static class deleteAsyncTask extends  AsyncTask<String, Void, Void>{
+
+        private ModuleDAO asyncTask;
+
+        deleteAsyncTask(ModuleDAO task){
+            asyncTask = task;
+        }
+
+        @Override
+        protected Void doInBackground(final String... strings) {
+            asyncTask.delete(strings[0]);
+            return null;
+        }
     }
 }

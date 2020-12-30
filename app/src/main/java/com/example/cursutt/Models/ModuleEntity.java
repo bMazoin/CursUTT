@@ -23,17 +23,26 @@ public class ModuleEntity implements Serializable {
     private int credit;
 
     @NonNull
-    public String getSigle() {
-        return sigle;
-    }
+    private String typeUE;
 
     public ModuleEntity(){
         this.sigle = "?";
         this.branche = new ArrayList<>();
         this.credit = 0;
+        this.typeUE = "?";
     }
 
+    public ModuleEntity(String sigle, List<BrancheEntity> branches, int creds, String typeUE){
+        this.sigle = sigle;
+        this.branche = branches;
+        this.credit = creds;
+        this.typeUE = typeUE;
+    }
 
+    @NonNull
+    public String getSigle() {
+        return sigle;
+    }
 
     public void setSigle(@NonNull String sigle) {
         this.sigle = sigle;
@@ -55,5 +64,14 @@ public class ModuleEntity implements Serializable {
 
     public void setCredit(@NonNull int credit) {
         this.credit = credit;
+    }
+
+    @NonNull
+    public String getTypeUE(){
+        return this.typeUE;
+    }
+
+    public void setTypeUE(String typeUE){
+        this.typeUE = typeUE;
     }
 }

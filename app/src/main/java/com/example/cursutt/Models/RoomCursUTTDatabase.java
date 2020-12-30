@@ -13,7 +13,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {BrancheEntity.class, CursusEntity.class, ModuleEntity.class, SemestreEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {BrancheEntity.class, CursusEntity.class, ModuleEntity.class, SemestreEntity.class}, version = 2, exportSchema = false)
 @TypeConverters({SemestreConverters.class, BrancheConverters.class, ModuleConverters.class})
 public abstract class RoomCursUTTDatabase extends RoomDatabase {
 
@@ -31,7 +31,7 @@ public abstract class RoomCursUTTDatabase extends RoomDatabase {
         if(INSTANCE == null){
             synchronized (RoomCursUTTDatabase.class){
                 if(INSTANCE == null){
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), RoomCursUTTDatabase.class, "cursutt_database").addCallback(sRoomDatabaseCallback).build();
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), RoomCursUTTDatabase.class, "cursutt_database").addCallback(sRoomDatabaseCallback).fallbackToDestructiveMigration().build();
                 }
             }
         }

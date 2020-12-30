@@ -9,16 +9,120 @@
     tools:context=".ViewModels.NewSemestreActivity">
 
     <TextView
+        android:id="@+id/newSemestre_tvSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rechercher et créer un module"
+        android:paddingTop="10dp"
+        />
+
+    <!-- Champs pour la recherche d'une UE -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/newSemestre_etSigleUE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            android:hint="Sigle du module"/>
+
+        <Spinner
+            android:id="@+id/newSemestre_spinnerTypeUE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/newSemestre_etCreditsUE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:textSize="10dp"
+            android:hint="Credits du module"/>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/newSemestre_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- Boutons rechercher et ajouter -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/newSemestre_btnSearch"
+            android:layout_margin="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rechercher"/>
+
+        <Button
+            android:layout_margin="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/newSemestre_btnCreate"
+            android:text="Créer"/>
+
+        <Button
+            android:layout_margin="5dp"
+            android:id="@+id/newSemestre_btnDel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Supprimer"/>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/newSemestre_recyclerSearchResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <!-- Bouton créer et ajouter -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <Button
+            android:layout_margin="5dp"
+            android:id="@+id/newSemestre_btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ajouter"/>
+
+        <Button
+            android:layout_margin="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/newSemestre_btnReset"
+            android:text="Réinitialiser"/>
+
+        <Button
+            android:layout_margin="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/newSemestre_btnRemove"
+            android:text="Enlever"/>
+    </LinearLayout>
+
+    <TextView
         android:id="@+id/newSemestre_textViewUE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Vos UEs:" />
 
-    <!--<androidx.recyclerview.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/newSemestre_recyclerViewUEs"
-        android:layout_margin="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />-->
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/newSemestre_tvRecap"
@@ -59,10 +163,6 @@
 
             <TextView
                 android:text="HP"
-                android:layout_width="45dp"/>
-
-            <TextView
-                android:text="NPML"
                 android:layout_width="45dp"/>
 
             <TextView
@@ -108,11 +208,6 @@
                 android:layout_width="45dp"/>
 
             <TextView
-                android:id="@+id/newSemestre_tvNPML"
-                android:hint="NPML"
-                android:layout_width="45dp"/>
-
-            <TextView
                 android:id="@+id/newSemestre_tvTOT"
                 android:hint="Tot."
                 android:layout_width="45dp"/>
@@ -120,105 +215,5 @@
         </TableRow>
 
     </TableLayout>
-
-    <TextView
-        android:id="@+id/newSemestre_tvSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Rechercher et créer un module"
-        android:paddingTop="10dp"
-        />
-
-    <!-- Champs pour la recherche d'une UE -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/newSemestre_etSigleUE"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10dp"
-            android:hint="Sigle du module"/>
-
-        <Spinner
-            android:id="@+id/newSemestre_spinnerTypeUE"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <EditText
-            android:id="@+id/newSemestre_etCreditsUE"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:textSize="10dp"
-            android:hint="Credits du module"/>
-
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/newSemestre_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-
-    <!-- Boutons rechercher et ajouter -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/newSemestre_btnSearch"
-            android:layout_margin="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rechercher"/>
-
-        <Button
-            android:layout_margin="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/newSemestre_btnCreate"
-            android:text="Créer"/>
-
-        <Button
-            android:layout_margin="5dp"
-            android:id="@+id/newSemestre_btnDel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Supprimer"/>
-
-    </LinearLayout>
-
-    <!-- Bouton créer et ajouter -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
-
-        <Button
-            android:layout_margin="5dp"
-            android:id="@+id/newSemestre_btnAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ajouter"/>
-
-        <Button
-            android:layout_margin="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/newSemestre_btnReset"
-            android:text="Réinitialiser"/>
-
-        <Button
-            android:layout_margin="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/newSemestre_btnRemove"
-            android:text="Enlever"/>
-    </LinearLayout>
 
 </LinearLayout>
