@@ -6,8 +6,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,9 +19,11 @@ import android.widget.Toast;
 
 import com.example.cursutt.Models.BrancheEntity;
 import com.example.cursutt.Models.ModuleEntity;
+import com.example.cursutt.Models.SemestreEntity;
 import com.example.cursutt.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,8 +34,10 @@ public class NewSemestreActivity extends AppCompatActivity {
     private AdaptateurBrancheRecycler adaptateurBrancheRecycler;
     private AdaptateurSearchResultRecycler adaptateurSearchResultRecycler;
     private AdaptateurModuleRecycler adaptateurUEs;
+
     private BrancheViewModel brancheViewModel;
     private ModuleViewModel moduleViewModel;
+    private SemestreViewModel semestreViewModel;
 
     private RecyclerView recycler_branchs;
     private RecyclerView recycler_search;
@@ -53,6 +59,7 @@ public class NewSemestreActivity extends AppCompatActivity {
     private TextView tv_HP;
     private TextView tv_TOT;
 
+    private EditText et_nom;
     private EditText et_sigleUE;
     private EditText et_nbCredits;
 
@@ -64,6 +71,7 @@ public class NewSemestreActivity extends AppCompatActivity {
     private Button bt_reset;
     private Button bt_del;
     private Button bt_remove;
+    private Button bt_save;
 
     //endregion
 
@@ -83,6 +91,7 @@ public class NewSemestreActivity extends AppCompatActivity {
 
         brancheViewModel = new ViewModelProvider(this).get(BrancheViewModel.class);
         moduleViewModel = new ViewModelProvider(this).get(ModuleViewModel.class);
+        semestreViewModel = new ViewModelProvider(this).get(SemestreViewModel.class);
 
         tv_CS = (TextView) findViewById(R.id.newSemestre_tvCS);
         tv_TM = (TextView) findViewById(R.id.newSemestre_tvTM);
@@ -92,6 +101,7 @@ public class NewSemestreActivity extends AppCompatActivity {
         tv_CT = (TextView) findViewById(R.id.newSemestre_tvCT);
         tv_HP = (TextView) findViewById(R.id.newSemestre_tvHP);
         tv_TOT = (TextView) findViewById(R.id.newSemestre_tvTOT);
+        et_nom = (EditText) findViewById(R.id.newSemestre_etNom);
         et_sigleUE = (EditText) findViewById(R.id.newSemestre_etSigleUE);
         et_nbCredits = (EditText) findViewById(R.id.newSemestre_etCreditsUE);
 
@@ -107,6 +117,7 @@ public class NewSemestreActivity extends AppCompatActivity {
         bt_reset = (Button) findViewById(R.id.newSemestre_btnReset);
         bt_del = (Button) findViewById(R.id.newSemestre_btnDel);
         bt_remove = (Button) findViewById(R.id.newSemestre_btnRemove);
+        bt_save = (Button) findViewById(R.id.newSemestre_btnSave);
 
         //endregion
 
@@ -118,6 +129,7 @@ public class NewSemestreActivity extends AppCompatActivity {
         bt_reset.setOnClickListener(v -> resetModule());
         bt_del.setOnClickListener(v -> deleteModule());
         bt_remove.setOnClickListener(v -> removeModule());
+        bt_save.setOnClickListener(v -> saveSemestre());
 
         //endregion
 
@@ -286,11 +298,28 @@ public class NewSemestreActivity extends AppCompatActivity {
         tv_CS.setText(Integer.toString(cs));
         tv_TM.setText(Integer.toString(tm));
         tv_ST.setText(Integer.toString(st));
-        tv_EC.setText(Integer.toString(me));
+        tv_EC.setText(Integer.toString(ec));
         tv_ME.setText(Integer.toString(me));
         tv_CT.setText(Integer.toString(ct));
         tv_HP.setText(Integer.toString(hp));
         tv_TOT.setText(Integer.toString(tot));
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void saveSemestre() {
+
+        if(et_nom.getText().equals("")){
+            Toast.makeText(this, "Vous devez rentrer un nom pour enregistrer le semestre", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        Intent returnIntent = new Intent();
+        returnIntent.putStringArrayListExtra("modulesSigle", (ArrayList) storedModules.stream().map(oModule -> oModule.getSigle()).collect(Collectors.toList()));
+        returnIntent.putExtra("modulesCreds", storedModules.stream().map(oModule -> oModule.getCredit()).reduce(0, Integer::sum));
+        returnIntent.putStringArrayListExtra("modulesTypes", (ArrayList) storedModules.stream().map(oModule -> oModule.getTypeUE()).collect(Collectors.toList()));
+        returnIntent.putExtra("semestreName", et_nom.getText());
+        setResult(0, returnIntent);
+        finish();
     }
 
     //endregion

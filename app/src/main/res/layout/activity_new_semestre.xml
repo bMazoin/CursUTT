@@ -216,4 +216,24 @@
 
     </TableLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="335dp"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/newSemestre_etNom"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:hint="Nom du semestre" />
+
+        <Button
+            android:id="@+id/newSemestre_btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Sauvegarder" />
+
+    </LinearLayout>
+
 </LinearLayout>

@@ -14,6 +14,9 @@ public interface SemestreDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(SemestreEntity semestre);
 
+    @Query("UPDATE SemestreEntity SET modules = :modules WHERE sigle = :sigle")
+    void updateModuleListSemestre(List<ModuleEntity> modules, String sigle);
+
     @Query("DELETE FROM SemestreEntity")
     void deleteAll();
 

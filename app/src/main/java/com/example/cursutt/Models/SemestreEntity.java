@@ -1,6 +1,10 @@
 package com.example.cursutt.Models;
 
+import android.os.Build;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -44,4 +48,10 @@ public class SemestreEntity {
     public void setModules(@NonNull List<ModuleEntity> modules) {
         this.modules = modules;
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public int getCredits(){
+        return(modules.stream().mapToInt(ModuleEntity::getCredit).sum());
+    }
+
 }

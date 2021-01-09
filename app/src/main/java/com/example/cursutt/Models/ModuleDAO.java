@@ -23,4 +23,7 @@ public interface ModuleDAO {
     @Query("SELECT * FROM ModuleEntity ORDER BY sigle ASC")
     LiveData<List<ModuleEntity>> getModules();
 
+    @Query("SELECT * FROM ModuleEntity WHERE sigle = :module")
+    ModuleEntity getModule(String module);
+
 }

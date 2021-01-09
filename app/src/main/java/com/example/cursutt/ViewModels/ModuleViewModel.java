@@ -33,4 +33,8 @@ public class ModuleViewModel extends AndroidViewModel {
         repository.deleteModule(module);
     }
 
+    public ModuleEntity getModule(String name){
+        return repository.getModule(name);
+    }
+
 }
