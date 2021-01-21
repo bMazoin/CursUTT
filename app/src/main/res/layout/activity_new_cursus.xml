@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:context=".ViewModels.NewCursusActivity">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -11,12 +12,103 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <TextView
+        android:id="@+id/newCursus_tvRecapText"
+        android:text="Récapitulatif de vos crédits"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- Récapitulatif des crédits -->
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow>
+
+            <TextView
+                android:text="CS"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:text="TM"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:text="ST"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:text="EC"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:text="ME"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:text="CT"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:text="HP"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:layout_width="45dp"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/newCursus_tvCS"
+                android:hint="CS"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:id="@+id/newCursus_tvTM"
+                android:hint="TM"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:id="@+id/newCursus_tvST"
+                android:hint="ST"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:id="@+id/newCursus_tvEC"
+                android:hint="EC"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:id="@+id/newCursus_tvME"
+                android:hint="ME"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:id="@+id/newCursus_tvCT"
+                android:hint="CT"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:id="@+id/newCursus_tvHP"
+                android:hint="HP"
+                android:layout_width="45dp"/>
+
+            <TextView
+                android:id="@+id/newCursus_tvTOT"
+                android:hint="Tot."
+                android:layout_width="45dp"/>
+
+        </TableRow>
+
+    </TableLayout>
+
     <Button
         android:id="@+id/newCursus_addButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/newCursus_recyclerView"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
         android:text="Ajouter un nouveau semestre" />
 
 
@@ -24,9 +116,26 @@
         android:id="@+id/newCursus_refreshButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/newCursus_addButton"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
         android:text="Rafraichir" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
 
-</RelativeLayout>
+        <EditText
+            android:id="@+id/newCursus_etNom"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:hint="Nom du cursus" />
+
+        <Button
+            android:id="@+id/newCursus_btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Sauvegarder" />
+    </LinearLayout>
+
+</LinearLayout>

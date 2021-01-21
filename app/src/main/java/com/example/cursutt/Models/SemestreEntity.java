@@ -1,6 +1,7 @@
 package com.example.cursutt.Models;
 
 import android.os.Build;
+import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName="SemestreEntity")
-public class SemestreEntity {
+public class SemestreEntity implements Parcelable {
 
     @PrimaryKey
     @NonNull
@@ -30,6 +31,23 @@ public class SemestreEntity {
         this.sigle = sigle;
         this.modules = modules;
     }
+
+    protected SemestreEntity(Parcel in) {
+        sigle = in.readString();
+        modules = in.createTypedArrayList(ModuleEntity.CREATOR);
+    }
+
+    public static final Creator<SemestreEntity> CREATOR = new Creator<SemestreEntity>() {
+        @Override
+        public SemestreEntity createFromParcel(Parcel in) {
+            return new SemestreEntity(in);
+        }
+
+        @Override
+        public SemestreEntity[] newArray(int size) {
+            return new SemestreEntity[size];
+        }
+    };
 
     @NonNull
     public String getSigle() {
@@ -54,4 +72,14 @@ public class SemestreEntity {
         return(modules.stream().mapToInt(ModuleEntity::getCredit).sum());
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(sigle);
+        dest.writeTypedList(modules);
+    }
 }

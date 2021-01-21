@@ -1,6 +1,7 @@
 package com.example.cursutt.Models;
 
 
+import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName="ModuleEntity")
-public class ModuleEntity{
+public class ModuleEntity implements Parcelable{
 
     @PrimaryKey
     @NonNull
@@ -40,6 +41,25 @@ public class ModuleEntity{
         this.credit = creds;
         this.typeUE = typeUE;
     }
+
+    protected ModuleEntity(Parcel in) {
+        sigle = in.readString();
+        branche = in.createTypedArrayList(BrancheEntity.CREATOR);
+        credit = in.readInt();
+        typeUE = in.readString();
+    }
+
+    public static final Creator<ModuleEntity> CREATOR = new Creator<ModuleEntity>() {
+        @Override
+        public ModuleEntity createFromParcel(Parcel in) {
+            return new ModuleEntity(in);
+        }
+
+        @Override
+        public ModuleEntity[] newArray(int size) {
+            return new ModuleEntity[size];
+        }
+    };
 
     @NonNull
     public String getSigle() {
@@ -75,5 +95,18 @@ public class ModuleEntity{
 
     public void setTypeUE(String typeUE){
         this.typeUE = typeUE;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(sigle);
+        dest.writeTypedList(branche);
+        dest.writeInt(credit);
+        dest.writeString(typeUE);
     }
 }

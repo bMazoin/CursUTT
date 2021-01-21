@@ -21,4 +21,10 @@ public interface CursusDAO {
 
     @Query("SELECT * FROM CursusEntity ORDER BY sigle ASC")
     LiveData<List<CursusEntity>> getCursus();
+
+    @Query("UPDATE CursusEntity SET sigle = :newName WHERE sigle = :oldName")
+    void updateName(String oldName, String newName);
+
+    @Query("UPDATE CursusEntity SET semestres = :semestres WHERE sigle = :cursusName")
+    void updateSemestres(String cursusName, List<SemestreEntity> semestres);
 }

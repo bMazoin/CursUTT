@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class NewSemestreActivity extends AppCompatActivity {
 
@@ -256,7 +257,26 @@ public class NewSemestreActivity extends AppCompatActivity {
                                         .collect(Collectors.toList());
 
         if(selectedBranches.size() != 0){
-            searchResultDisplayedModules = searchResultDisplayedModules.stream().filter(mod -> selectedBranches.stream().anyMatch(m -> mod.getBranche().equals(m))).collect(Collectors.toList());
+            // Pour la recherche des modules par branche, on est obligé de passer par un code "sale"
+            // Le filter de java ne fonctionne pas pour comparer deux objets Branche
+
+            List<ModuleEntity> mods = new ArrayList<ModuleEntity>();
+            selectedBranches.forEach(oBranche -> {
+                Stream<ModuleEntity> streamModule = searchResultDisplayedModules.stream();
+
+                streamModule.forEach(oMod -> {
+                    List<BrancheEntity> modBranche = oMod.getBranche();
+
+                    modBranche.forEach(oB -> {
+                        if(oB.getSigle().equals(oBranche.getSigle())){
+                            mods.add(oMod);
+                        }
+                    });
+
+                });
+            });
+
+            searchResultDisplayedModules = mods;
         }
         if(!sigle.equals("")){
             searchResultDisplayedModules = searchResultDisplayedModules.stream().filter(mod -> mod.getSigle().equals(sigle)).collect(Collectors.toList());
@@ -308,18 +328,19 @@ public class NewSemestreActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void saveSemestre() {
 
-        if(et_nom.getText().equals("")){
-            Toast.makeText(this, "Vous devez rentrer un nom pour enregistrer le semestre", Toast.LENGTH_LONG).show();
-            return;
+        if(!et_nom.getText().toString().equals("")) {
+            Intent returnIntent = new Intent();
+            /*returnIntent.putStringArrayListExtra("modulesSigle", (ArrayList) storedModules.stream().map(oModule -> oModule.getSigle()).collect(Collectors.toList()));
+            returnIntent.putExtra("modulesCreds", storedModules.stream().map(oModule -> oModule.getCredit()).reduce(0, Integer::sum));
+            returnIntent.putStringArrayListExtra("modulesTypes", (ArrayList) storedModules.stream().map(oModule -> oModule.getTypeUE()).collect(Collectors.toList()));*/
+            returnIntent.putExtra("semestreName", et_nom.getText().toString());
+            returnIntent.putParcelableArrayListExtra("modules", (ArrayList) storedModules);
+            setResult(0, returnIntent);
+            finish();
         }
-
-        Intent returnIntent = new Intent();
-        returnIntent.putStringArrayListExtra("modulesSigle", (ArrayList) storedModules.stream().map(oModule -> oModule.getSigle()).collect(Collectors.toList()));
-        returnIntent.putExtra("modulesCreds", storedModules.stream().map(oModule -> oModule.getCredit()).reduce(0, Integer::sum));
-        returnIntent.putStringArrayListExtra("modulesTypes", (ArrayList) storedModules.stream().map(oModule -> oModule.getTypeUE()).collect(Collectors.toList()));
-        returnIntent.putExtra("semestreName", et_nom.getText());
-        setResult(0, returnIntent);
-        finish();
+        else{
+            Toast.makeText(this, "Vous devez rentrer un nom pour enregistrer le semestre", Toast.LENGTH_LONG).show();
+        }
     }
 
     //endregion

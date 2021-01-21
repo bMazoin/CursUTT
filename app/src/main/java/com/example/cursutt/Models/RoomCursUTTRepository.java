@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.loader.content.AsyncTaskLoader;
 
 import com.example.cursutt.R;
 
@@ -57,6 +58,8 @@ public class RoomCursUTTRepository {
 
     public LiveData<List<SemestreEntity>> getSemestres() { return mAllSemestre; }
 
+    public LiveData<List<CursusEntity>> getCursus() { return mAllCursus; }
+
     public void insertModule(ModuleEntity module){
         RoomCursUTTDatabase.databaseWriteExecutor.execute(() -> {
             insertAsyncTaskModule insertTask = new insertAsyncTaskModule(moduleDAO);
@@ -94,6 +97,58 @@ public class RoomCursUTTRepository {
             deleteAsyncTaskSemestre deleteAsyncTask = new deleteAsyncTaskSemestre(semestreDAO);
             deleteAsyncTask.doInBackground(semestre.getSigle());
         });
+    }
+
+    public void insertCursus(CursusEntity cursus){
+        RoomCursUTTDatabase.databaseWriteExecutor.execute(() -> {
+            insertAsyncTaskCursus insertAsyncTask = new insertAsyncTaskCursus(cursusDAO);
+            insertAsyncTask.doInBackground(cursus);
+        });
+    }
+
+    public void deleteCursus(CursusEntity cursus){
+        RoomCursUTTDatabase.databaseWriteExecutor.execute(() -> {
+            deleteAsyncTaskCursus deleteAsyncTask = new deleteAsyncTaskCursus(cursusDAO);
+            deleteAsyncTask.doInBackground(cursus.getSigle());
+        });
+    }
+
+    public void updateSemestres(CursusEntity actualCursus, List<SemestreEntity> semestres){
+        RoomCursUTTDatabase.databaseWriteExecutor.execute(() -> {
+            updateCursusSemestresAsyncTask asyncTask = new updateCursusSemestresAsyncTask(cursusDAO);
+            asyncTask.doInBackground(new updateCursusSemestresParams(actualCursus.getSigle(), semestres));
+        });
+    }
+
+    public void updateName(CursusEntity actualCursus, String name){
+        RoomCursUTTDatabase.databaseWriteExecutor.execute(() -> {
+            updateCursusNameAsyncTask asyncTask = new updateCursusNameAsyncTask(cursusDAO);
+            asyncTask.doInBackground(new updateCursusSemestresParams(actualCursus.getSigle(), name));
+        });
+    }
+
+    private static class updateCursusNameAsyncTask extends AsyncTask<updateCursusSemestresParams, Void, Void>{
+        private CursusDAO asyncTask;
+
+        updateCursusNameAsyncTask(CursusDAO asyncTask) {this.asyncTask = asyncTask;}
+
+        @Override
+        protected Void doInBackground(final updateCursusSemestresParams... cursus){
+            asyncTask.updateName(cursus[0].cursusName, cursus[0].newCursusName);
+            return null;
+        }
+    }
+
+    private static class updateCursusSemestresAsyncTask extends AsyncTask<updateCursusSemestresParams, Void, Void>{
+        private CursusDAO asyncTask;
+
+        updateCursusSemestresAsyncTask(CursusDAO asyncTask){ this.asyncTask = asyncTask;}
+
+        @Override
+        protected  Void doInBackground(final updateCursusSemestresParams... cursus){
+            asyncTask.updateSemestres(cursus[0].cursusName, cursus[0].semestres);
+            return null;
+        }
     }
 
     private static class insertAsyncTaskModule extends AsyncTask<ModuleEntity, Void, Void>{
@@ -175,4 +230,45 @@ public class RoomCursUTTRepository {
             this.semestreName = semestreName;
         }
     }
+
+    private static class updateCursusSemestresParams{
+        List<SemestreEntity> semestres;
+        String cursusName;
+        String newCursusName;
+
+        updateCursusSemestresParams(String cursusName, List<SemestreEntity> semestres){
+            this.semestres = semestres;
+            this.cursusName = cursusName;
+        }
+
+        updateCursusSemestresParams(String cursusName, String newCursusName){
+            this.cursusName = cursusName;
+            this.newCursusName = newCursusName;
+        }
+    }
+
+    private static class insertAsyncTaskCursus extends AsyncTask<CursusEntity, Void, Void>{
+        private CursusDAO asyncTask;
+
+        insertAsyncTaskCursus(CursusDAO asyncTask){ this.asyncTask = asyncTask;}
+
+        @Override
+        protected Void doInBackground(final CursusEntity... cursusEntities){
+            asyncTask.insert(cursusEntities[0]);
+            return null;
+        }
+    }
+
+    private static class deleteAsyncTaskCursus extends AsyncTask<String, Void, Void>{
+        private CursusDAO asyncTask;
+
+        deleteAsyncTaskCursus(CursusDAO task){asyncTask = task;}
+
+        @Override
+        protected Void doInBackground(final String... strings){
+            asyncTask.delete(strings[0]);
+            return null;
+        }
+    }
+
 }

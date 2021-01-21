@@ -26,13 +26,19 @@ public class SemestreViewHolder extends RecyclerView.ViewHolder {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void display(SemestreEntity semestre){
+        final StringBuilder modulesInfosStringBuilder = new StringBuilder();
+        semestre.getModules().forEach(oModule -> {
+            modulesInfosStringBuilder.append(oModule.getSigle() + " (" +
+                    oModule.getTypeUE() + " : " + oModule.getCredit() + ") |");
+        });
         tv_nom.setText(semestre.getSigle());
-        tv_info.setText("Il y a " + semestre.getModules().size() + " de modules dans ce semestre\nCrédits : " + Integer.toString(semestre.getCredits()) );
+        tv_info.setText("Il y a " + semestre.getModules().size() + " de modules dans ce semestre\n " + modulesInfosStringBuilder.toString() +
+                "\nCrédits : " + Integer.toString(semestre.getCredits()) );
     }
 
     static SemestreViewHolder create(ViewGroup parent){
         LayoutInflater layout = LayoutInflater.from(parent.getContext());
-        View v = layout.inflate(R.layout.searchresult_item, parent, false);
+        View v = layout.inflate(R.layout.semestre_item, parent, false);
         return new SemestreViewHolder(v);
     }
 }
