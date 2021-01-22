@@ -22,12 +22,12 @@
         android:text="Ajouter un nouveau cursus" />
 
     <Button
-        android:id="@+id/main_resetButton"
+        android:id="@+id/main_refreshButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/main_addButton"
         android:layout_centerHorizontal="true"
         android:layout_margin="50dp"
-        android:text="Réinitialiser la liste de cursus" />
+        android:text="Rafraichir la liste de cursus" />
 
 </RelativeLayout>

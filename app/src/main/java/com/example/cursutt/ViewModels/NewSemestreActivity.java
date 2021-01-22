@@ -213,7 +213,7 @@ public class NewSemestreActivity extends AppCompatActivity {
         ModuleEntity module = new ModuleEntity(sigle, selectedBranches, creds, typeUe);
 
         moduleViewModel.insertModule(module);
-        resetModule();
+        //resetModule();
     }
 
     private void resetModule(){
